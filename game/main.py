@@ -71,6 +71,12 @@ class SpaceGame:
         self.animation_timer = 0
         self.animation_speed = 100  # milliseconds
 
+        self.travel_distance = 5
+        self.dir = -1
+
+        self.rover_y = HEIGHT // 2
+        self.rover_x = WIDTH // 2 - self.rover_size[0] // 2
+
         # Load cloud images and create Cloud objects
         cloud_images = [pygame.image.load(f'assets/cloud{i}.jpg') for i in range(1, 7)]
         self.clouds = []
@@ -129,9 +135,22 @@ class SpaceGame:
         if current_time - self.animation_timer > self.animation_speed:
             self.current_rover = (self.current_rover + 1) % len(self.rover_images)
             self.animation_timer = current_time
+            
+            target = HEIGHT // 2
 
-    def draw_rover(self, x, y):
-        screen.blit(self.rover_images[self.current_rover], (400, 60))
+            self.rover_y += self.dir * 2
+
+            if self.dir == -1 and self.rover_y < target - self.travel_distance:
+                self.dir = 1
+                self.travel_distance = min(0.2, random.random()) * 5.0
+            elif self.dir == 1 and self.rover_y >= target + self.travel_distance:
+                self.dir = -1
+                self.travel_distance = min(0.2, random.random()) * 5.0
+
+            screen.blit(self.rover_images[self.current_rover], (self.rover_x, self.rover_y))
+
+    def draw_rover(self):
+        screen.blit(self.rover_images[self.current_rover], (self.rover_x, self.rover_y))
 
     def draw_text_image(self, x, y):
         screen.blit(self.text_images[self.current_text], (600, 60))
@@ -177,6 +196,40 @@ class SpaceGame:
                 self.draw_stars()
                 self.update_stars()
                 screen.blit(self.background2, (0, 0))
+<<<<<<< HEAD
+
+            # Animate rover
+            self.animate_rover()
+
+            if self.state == 'START':
+                self.draw_rover()
+                
+                # Draw speech bubble
+                self.draw_speech_bubble(WELCOME_MSG, self.rover_x - 100, self.rover_y - 125, 400, 100)
+                
+            elif self.state == 'SELECT':
+                # Draw rover
+                self.draw_rover()
+                
+                # Draw speech bubble (moved up)
+                self.draw_speech_bubble('Please, tell me a little bit about yourself:', self.rover_x - 150, self.rover_y + self.rover_size[1] + 10, 500, 100)
+                
+                box_width, box_height = 400, 120
+                box_spacing = 20
+                total_height = 3 * box_height + 2 * box_spacing
+                start_y = (HEIGHT - total_height) // 2 + 150  # Increased vertical offset
+
+                # Draw language selection square
+                self.draw_selection_square(WIDTH // 2 - box_width // 2, start_y, box_width, box_height, 'What language do you speak?', self.language)
+                
+                # Draw location selection square
+                self.draw_selection_square(WIDTH // 2 - box_width // 2, start_y + box_height + box_spacing, box_width, box_height, 'Where are you located?', self.location)
+
+                # Draw name input square
+                self.draw_selection_square(WIDTH // 2 - box_width // 2, start_y + 2 * (box_height + box_spacing), box_width, box_height, "What's your name?", self.name)
+                
+=======
+>>>>>>> 92e1713b6344b1cf97abe5707546920e1bd05b31
             elif self.state == 'TERMINAL':
                 if self.terminal_state == 'STATIC':
                     screen.blit(self.terminal1, (0, 0))
