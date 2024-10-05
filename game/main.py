@@ -49,6 +49,21 @@ class SpaceGame:
         for img in self.text_images_original:
             img = pygame.transform.scale(img, self.text_images_size)
             self.text_images.append(img)
+
+        # Load language message
+        self.text_language = pygame.image.load('assets/language.jpg')
+        self.text_language_size = (400, 200)
+        self.text_language = pygame.transform.scale(self.text_language, self.text_language_size)
+
+        # Load location message
+        self.text_location = pygame.image.load('assets/location.jpg')
+        self.text_location_size = (400, 200)
+        self.text_location = pygame.transform.scale(self.text_location, self.text_location_size)
+
+        # Load name message
+        self.text_name = pygame.image.load('assets/name.jpg')
+        self.text_name_size = (400, 200)
+        self.text_name = pygame.transform.scale(self.text_name, self.text_name_size)
         
         # Animation variables
         self.current_rover = 0
@@ -96,18 +111,18 @@ class SpaceGame:
     def update_stars(self):
         self.stars = [((x + 1) % WIDTH, (y + 1) % HEIGHT) for x, y in self.stars]
 
-    def draw_selection_square(self, x, y, width, height, label, value):
-        background_surface = pygame.Surface((width, height), pygame.SRCALPHA)
-        background_surface.fill(DARK_GRAY)
-        screen.blit(background_surface, (x, y))
-        pygame.draw.rect(screen, WHITE, (x, y, width, height), 2)
-        label_bottom = self.draw_centered_text(label, font, WHITE, x, y + 20, width)
-        pygame.draw.line(screen, WHITE, (x + 10, label_bottom + 5), (x + width - 10, label_bottom + 5), 2)
-        self.draw_text(value, font, WHITE, x + width // 2, label_bottom + 35, 'center')
-        arrow_points = [(x + width // 2, y + height - 20),
-                        (x + width // 2 - 10, y + height - 30),
-                        (x + width // 2 + 10, y + height - 30)]
-        pygame.draw.polygon(screen, WHITE, arrow_points)
+    # def draw_selection_square(self, x, y, width, height, label, value):
+    #     background_surface = pygame.Surface((width, height), pygame.SRCALPHA)
+    #     background_surface.fill(DARK_GRAY)
+    #     screen.blit(background_surface, (x, y))
+    #     pygame.draw.rect(screen, WHITE, (x, y, width, height), 2)
+    #     label_bottom = self.draw_centered_text(label, font, WHITE, x, y + 20, width)
+    #     pygame.draw.line(screen, WHITE, (x + 10, label_bottom + 5), (x + width - 10, label_bottom + 5), 2)
+    #     self.draw_text(value, font, WHITE, x + width // 2, label_bottom + 35, 'center')
+    #     arrow_points = [(x + width // 2, y + height - 20),
+    #                     (x + width // 2 - 10, y + height - 30),
+    #                     (x + width // 2 + 10, y + height - 30)]
+    #     pygame.draw.polygon(screen, WHITE, arrow_points)
 
     def animate_rover(self):
         current_time = pygame.time.get_ticks()
@@ -194,9 +209,9 @@ class SpaceGame:
                     total_height = 3 * box_height + 2 * box_spacing
                     start_y = text_y + text_image.get_height() + 50
 
-                    self.draw_selection_square(500, 300, box_width, box_height, 'What language do you speak?', self.language)
-                    self.draw_selection_square(500, 300 + box_height + box_spacing, box_width, box_height, 'Where are you located?', self.location)
-                    self.draw_selection_square(500, 300 + 2 * (box_height + box_spacing), box_width, box_height, "What's your name?", self.name)
+                    screen.blit(self.text_language, (100, 400))
+                    screen.blit(self.text_location, (500, 400))
+                    screen.blit(self.text_name, (900, 400))
 
             pygame.display.flip()
             clock.tick(60)
