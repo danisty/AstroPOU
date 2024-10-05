@@ -45,7 +45,13 @@ class SpaceGame:
         self.rover_images = [self.rover1, self.rover2]
         self.current_rover = 0
         self.animation_timer = 0
-        self.animation_speed = 1  # milliseconds
+        self.animation_speed = 100  # milliseconds
+
+        self.travel_distance = 5
+        self.dir = -1
+
+        self.rover_y = HEIGHT // 2
+        self.rover_x = WIDTH // 2 - self.rover_size[0] // 2
 
         # Load cloud images and create Cloud objects
         cloud_images = [pygame.image.load(f'assets/cloud{i}.jpg') for i in range(1, 7)]
@@ -116,9 +122,22 @@ class SpaceGame:
         if current_time - self.animation_timer > self.animation_speed:
             self.current_rover = (self.current_rover + 1) % len(self.rover_images)
             self.animation_timer = current_time
+            
+            target = HEIGHT // 2
 
-    def draw_rover(self, x, y):
-        screen.blit(self.rover_images[self.current_rover], (x, y))
+            self.rover_y += self.dir * 2
+
+            if self.dir == -1 and self.rover_y < target - self.travel_distance:
+                self.dir = 1
+                self.travel_distance = min(0.2, random.random()) * 5.0
+            elif self.dir == 1 and self.rover_y >= target + self.travel_distance:
+                self.dir = -1
+                self.travel_distance = min(0.2, random.random()) * 5.0
+
+            screen.blit(self.rover_images[self.current_rover], (self.rover_x, self.rover_y))
+
+    def draw_rover(self):
+        screen.blit(self.rover_images[self.current_rover], (self.rover_x, self.rover_y))
 
     def draw_speech_bubble(self, text, x, y, width, height):
         # Draw the main bubble
@@ -187,20 +206,17 @@ class SpaceGame:
             self.animate_rover()
 
             if self.state == 'START':
-                # Draw rover
-                rover_x, rover_y = WIDTH // 2 - self.rover_size[0] // 2, HEIGHT // 2
-                self.draw_rover(rover_x, rover_y)
+                self.draw_rover()
                 
                 # Draw speech bubble
-                self.draw_speech_bubble(WELCOME_MSG, rover_x - 100, rover_y - 125, 400, 100)
+                self.draw_speech_bubble(WELCOME_MSG, self.rover_x - 100, self.rover_y - 125, 400, 100)
                 
             elif self.state == 'SELECT':
                 # Draw rover
-                rover_x, rover_y = WIDTH // 2 - self.rover_size[0] // 2, 50
-                self.draw_rover(rover_x, rover_y)
+                self.draw_rover()
                 
                 # Draw speech bubble (moved up)
-                self.draw_speech_bubble('Please, tell me a little bit about yourself:', rover_x - 150, rover_y + self.rover_size[1] + 10, 500, 100)
+                self.draw_speech_bubble('Please, tell me a little bit about yourself:', self.rover_x - 150, self.rover_y + self.rover_size[1] + 10, 500, 100)
                 
                 box_width, box_height = 400, 120
                 box_spacing = 20
