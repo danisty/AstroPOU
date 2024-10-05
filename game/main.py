@@ -47,6 +47,7 @@ class SpaceGame:
 
         self.rover_y = HEIGHT // 2
         self.rover_x = WIDTH // 2 - self.rover_size[0] // 2
+        self.target = self.rover_y
         
         # Load text images (keep original size)
         self.text_images_original = [pygame.image.load(f'assets/text{i}.jpg') for i in range(1, 18)]
@@ -137,8 +138,19 @@ class SpaceGame:
             self.current_rover = (self.current_rover + 1) % len(self.rover_images)
             self.animation_timer = current_time
 
+            self.rover_y += self.dir * 2
+
+            if self.dir == -1 and self.rover_y < self.target - self.travel_distance:
+                self.dir = 1
+                self.travel_distance = min(0.2, random.random()) * 5.0
+            elif self.dir == 1 and self.rover_y >= self.target + self.travel_distance:
+                self.dir = -1
+                self.travel_distance = min(0.2, random.random()) * 5.0
+
     def draw_rover(self, x, y):
-        screen.blit(self.rover_images[self.current_rover], (400, 60))
+        self.rover_x = x
+        self.target = self.rover_y = y
+        screen.blit(self.rover_images[self.current_rover], (self.rover_x, self.rover_y))
 
     def draw_text_image(self, x, y):
         screen.blit(self.text_images[self.current_text], (600, 60))
@@ -204,8 +216,8 @@ class SpaceGame:
                 text_y = HEIGHT // 2 - text_image.get_height() // 2
                 
                 # Position rover in the bottom left corner
-                rover_x = 20
-                rover_y = HEIGHT - self.rover_size[1] - 20
+                rover_x = 400
+                rover_y = 60
                 
                 self.draw_rover(rover_x, rover_y)
                 self.draw_text_image(text_x, text_y)

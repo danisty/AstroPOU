@@ -1,7 +1,8 @@
-import { ArrowUpCircle, Award, ChartBar, ChevronLeft, ChevronRight, Lightbulb, Menu, Rocket, Telescope, Users, X } from 'lucide-react';
+import { ArrowUpCircle, Award, BookOpen, ChartBar, ChevronLeft, ChevronRight, Code, Cpu, Globe, Lightbulb, Menu, Presentation, Rocket, Smartphone, Telescope, Users, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { animated, config, useSpring } from 'react-spring';
 import CrewMemberCard from './CrewMemberCard';
+import GalleryViewer from './GalleryViewer';
 
 const teamMembers = [
   {
@@ -46,6 +47,17 @@ const teamMembers = [
   }
 ];
 
+
+const FeatureCard = ({ icon, title, description }) => (
+  <div className="bg-blue-900 rounded-lg p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
+    <div className="flex items-center space-x-4 mb-4">
+      {icon}
+      <h3 className="text-xl font-bold">{title}</h3>
+    </div>
+    <p className="text-gray-300">{description}</p>
+  </div>
+);
+
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -73,6 +85,7 @@ const Header = () => {
     const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
   
     const navItems = [
+      { name: 'Project', href: '#project', icon: <Presentation size={20} /> },
       { name: 'Challenge', href: 'https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/chronicles-of-exoplanet-exploration/', icon: <Award size={20} /> },
       { name: 'Crew', href: '#team', icon: <Users size={20} /> },
     ];
@@ -196,23 +209,25 @@ const useAutoScroll = (scrollRef, duration = 20000, pauseDuration = 1000) => {
   return setIsScrolling;
 };
 
-const ChallengeCard = ({ icon, title, description }) => (
-  <div className="bg-blue-900 rounded-lg p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
-    <div className="flex items-center space-x-4 mb-4">
-      {icon}
-      <h3 className="text-xl font-bold">{title}</h3>
-    </div>
-    <p className="text-gray-300">{description}</p>
-  </div>
-);
-
 const NASAPortfolio = () => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const scrollRef = useRef(null);
   const setIsScrolling = useAutoScroll(scrollRef);
 
   const [, setY] = useSpring(() => ({ y: 0 }));
+
+  const projectImages = [
+    "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
+    "https://images.unsplash.com/photo-1581822261290-991b38693d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
+    "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
+    "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
+    "https://images.unsplash.com/photo-1543722530-d2c3201371e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
+    "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
+    "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
+    "https://media.discordapp.net/attachments/1292047329301495843/1292123665021931620/rabbit.jpg?ex=67029770&is=670145f0&hm=b8f1a118659956eef8de93f43713dd598cefddfc292caed610bb0d6466757db5&=&format=webp&width=384&height=579",
+    "https://images.unsplash.com/photo-1590341328520-63256eb32bc3?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
+    "https://images.unsplash.com/photo-1608178398319-48f814d0750c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80"
+  ];
 
   const scrollTo = (direction) => {
     const element = scrollRef.current;
@@ -263,6 +278,81 @@ const NASAPortfolio = () => {
           <a href="https://github.com/danisty/AstroPOU" className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition duration-300 ml-4">
             Source code
           </a>
+        </div>
+      </section>
+
+      <section id="project" className="py-20 bg-gray-900">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold mb-8 text-center">AstroPOU</h2>
+          <div className="max-w-3xl mx-auto text-center mb-12">
+            <p className="text-xl mb-6">
+              AstroPOU (Power Of Understanding) is a dynamic immersive experience that educates users about exoplanet research and NASA's Exoplanet Exploration Program through compelling storytelling and interactive mini-games.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            <FeatureCard 
+              icon={<Smartphone size={32} className="text-blue-400" />}
+              title="Multi-Platform"
+              description="A lightweight application compatible with Android, iOS, and desktop environments, including Raspberry Pi."
+            />
+            <FeatureCard 
+              icon={<Users size={32} className="text-green-400" />}
+              title="Inclusive Design"
+              description="Tailored for elementary school students and populations with limited digital resources, featuring accessibility options for those with hearing or visual impairments."
+            />
+            <FeatureCard 
+              icon={<Globe size={32} className="text-yellow-400" />}
+              title="Personalized Experience"
+              description="Users create accounts specifying their username, country, and language, leading to a customized learning journey."
+            />
+            <FeatureCard 
+              icon={<BookOpen size={32} className="text-purple-400" />}
+              title="Educational Content"
+              description="Incorporates principles of connectivism and constructivism, with content sourced from NASA's Exoplanets website and the Exoplanet Archive."
+            />
+            <FeatureCard 
+              icon={<Cpu size={32} className="text-red-400" />}
+              title="Interactive Learning"
+              description="Features mini-games and quizzes to test and reinforce knowledge, making the learning experience enjoyable and effective."
+            />
+            <FeatureCard 
+              icon={<Code size={32} className="text-indigo-400" />}
+              title="Technical Innovation"
+              description="Developed using Python for compatibility with Raspberry Pi, with potential for real-time data fetching from the Exoplanet Archive API."
+            />
+          </div>
+
+          <div className="bg-blue-900 rounded-lg p-8 shadow-lg">
+            <h3 className="text-2xl font-bold mb-4">Development Process</h3>
+            <p className="text-lg mb-6">
+              Our team leveraged a variety of tools and technologies to bring AstroPOU to life:
+            </p>
+            <ul className="list-disc list-inside space-y-2">
+              <li><strong>IDE:</strong> Visual Studio Code</li>
+              <li><strong>Version Control:</strong> Git</li>
+              <li><strong>Languages:</strong> Python (demo), HTML5, CSS, JavaScript, and React (web page)</li>
+              <li><strong>Design Tools:</strong> Adobe Illustrator, Adobe Photoshop</li>
+              <li><strong>Presentation:</strong> Microsoft PowerPoint</li>
+            </ul>
+            <p className="mt-6 text-lg">
+              Our development approach focused on creating a lightweight, accessible solution that could run on various platforms, including resource-constrained devices like Raspberry Pi. We incorporated educational principles and interactive elements to ensure an engaging learning experience for our young audience.
+            </p>
+          </div>
+
+          <div className="mt-12 text-center">
+            <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
+            <p className="text-lg">
+              With AstroPOU, we aim to inspire young minds to explore the fascinating world of exoplanets and space exploration. By providing an interactive and immersive experience, we hope to cultivate a passion for space and science, stimulate critical thinking skills, and make quality space education accessible to all, regardless of technological resources.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="gallery" className="pt-20 bg-gray-800">
+        <div className="container mx-auto px-4">
+          <h2 className="text-4xl font-bold mb-8 text-center">Project Gallery</h2>
+          <GalleryViewer images={projectImages} />
         </div>
       </section>
 
