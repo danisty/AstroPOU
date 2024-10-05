@@ -25,6 +25,7 @@ pygame.display.set_caption(WELCOME_MSG)
 class SpaceGame:
     def __init__(self):
         self.state = "START"
+        self.terminal_state = "STATIC"
         
         # Load background images
         self.background1 = pygame.image.load("background1.jpg")
@@ -34,15 +35,16 @@ class SpaceGame:
         self.background2 = pygame.transform.scale(self.background2, (WIDTH, HEIGHT))
         
         # Load terminal images
+        self.terminal1 = pygame.image.load("terminal1.jpg")
+        self.terminal1 = pygame.transform.scale(self.terminal1, (WIDTH, HEIGHT))
         self.terminal_images = [
-            pygame.image.load("terminal1.jpg"),
             pygame.image.load("terminal2.jpg"),
             pygame.image.load("terminal3.jpg")
         ]
         self.terminal_images = [pygame.transform.scale(img, (WIDTH, HEIGHT)) for img in self.terminal_images]
         self.current_terminal = 0
         self.terminal_animation_timer = 0
-        self.terminal_animation_speed = 1000  # milliseconds
+        self.terminal_animation_speed = 200  # milliseconds
         
         # Load and resize rover images
         self.rover1 = pygame.image.load("rover1.jpg")
@@ -134,7 +136,10 @@ class SpaceGame:
             self.terminal_animation_timer = current_time
 
     def draw_terminal(self):
-        screen.blit(self.terminal_images[self.current_terminal], (0, 0))
+        if self.terminal_state == "STATIC":
+            screen.blit(self.terminal1, (0, 0))
+        else:
+            screen.blit(self.terminal_images[self.current_terminal], (0, 0))
 
     def play(self):
         clock = pygame.time.Clock()
@@ -153,6 +158,8 @@ class SpaceGame:
                             self.state = "SELECT"
                         elif self.state == "SELECT":
                             self.state = "TERMINAL"
+                        elif self.state == "TERMINAL" and self.terminal_state == "STATIC":
+                            self.terminal_state = "ANIMATED"
 
             if self.state in ["START", "SELECT"]:
                 # Draw background1
@@ -199,9 +206,12 @@ class SpaceGame:
                 self.draw_selection_square(WIDTH // 2 - box_width // 2, start_y + 2 * (box_height + box_spacing), box_width, box_height, "What's your name?", self.name)
                 
             elif self.state == "TERMINAL":
-                # Animate and draw terminal background
-                self.animate_terminal()
+                # Draw terminal background
                 self.draw_terminal()
+                
+                # Animate terminal if in ANIMATED state
+                if self.terminal_state == "ANIMATED":
+                    self.animate_terminal()
 
             pygame.display.flip()
             clock.tick(60)
