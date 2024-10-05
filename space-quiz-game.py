@@ -2,14 +2,6 @@ import pygame
 import sys
 import random
 
-# Initialize Pygame
-pygame.init()
-
-# Set up display
-WIDTH, HEIGHT = 1366, 768
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Space Quiz Game")
-
 # Colors
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -18,13 +10,20 @@ GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 YELLOW = (255, 255, 0)
 
+# Messages
+WELCOME_MSG = "Welcome, fellow terrestrial!"
+
+# Initialize Pygame
+pygame.init()
+
 # Fonts
 font = pygame.font.Font(None, 36)
 big_font = pygame.font.Font(None, 48)
 
-# Messages
-
-WELCOME_MSG = "Welcome, fellow terrestrian!"
+# Set up display
+WIDTH, HEIGHT = 1366, 768
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption(WELCOME_MSG)
 
 class SpaceQuizGame:
     def __init__(self):
@@ -106,26 +105,36 @@ class SpaceQuizGame:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if self.state == "START":
-                        self.state = "PLAY"
-                        self.timer = self.time_limit
-                    elif self.state == "PLAY":
-                        mouse_pos = pygame.mouse.get_pos()
-                        for i in range(4):
-                            if 100 <= mouse_pos[0] <= WIDTH - 100 and 200 + i * 80 <= mouse_pos[1] <= 260 + i * 80:
-                                self.check_answer(i)
-                    elif self.state == "END":
-                        self.reset_game()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
+                        sys.exit()
+                    if event.key == pygame.K_SPACE:
+                        if self.state == "START":
+                            self.state = "PLAY"
+                            self.timer = self.time_limit
+                        elif self.state == "END":
+                            self.reset_game()
+                if event.type == pygame.MOUSEBUTTONDOWN and self.state == "PLAY":
+                    mouse_pos = pygame.mouse.get_pos()
+                    for i in range(4):
+                        if 100 <= mouse_pos[0] <= WIDTH - 100 and 200 + i * 80 <= mouse_pos[1] <= 260 + i * 80:
+                            self.check_answer(i)
 
+            # Draw background1
             screen.blit(self.background1, (0, 0))
+            
+            # Draw and update stars
             self.draw_stars()
             self.update_stars()
+            
+            # Draw background2 on top of stars
             screen.blit(self.background2, (0, 0))
 
             if self.state == "START":
                 self.draw_text(WELCOME_MSG, big_font, WHITE, WIDTH // 2, HEIGHT // 2 - 50)
-                self.draw_button("Start", WIDTH // 2 - 100, HEIGHT // 2 + 50, 200, 60, GREEN, WHITE)
+                self.draw_text("Press SPACE to start", font, WHITE, WIDTH // 2, HEIGHT // 2 + 50)
+                self.draw_text("Press ESC to quit", font, WHITE, WIDTH // 2, HEIGHT // 2 + 100)
             elif self.state == "PLAY":
                 self.draw_question()
                 self.draw_timer()
@@ -134,7 +143,8 @@ class SpaceQuizGame:
                     self.check_answer(None)
             elif self.state == "END":
                 self.draw_text(f"Game Over! Your score: {self.score}/{len(self.questions)}", big_font, WHITE, WIDTH // 2, HEIGHT // 2 - 50)
-                self.draw_button("Play Again", WIDTH // 2 - 100, HEIGHT // 2 + 50, 200, 60, GREEN, WHITE)
+                self.draw_text("Press SPACE to play again", font, WHITE, WIDTH // 2, HEIGHT // 2 + 50)
+                self.draw_text("Press ESC to quit", font, WHITE, WIDTH // 2, HEIGHT // 2 + 100)
 
             pygame.display.flip()
             clock.tick(60)
