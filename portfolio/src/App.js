@@ -73,7 +73,6 @@ const Header = () => {
     const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
   
     const navItems = [
-      { name: 'Home', href: '#home', icon: <Telescope size={20} /> },
       { name: 'Challenge', href: 'https://www.spaceappschallenge.org/nasa-space-apps-2024/challenges/chronicles-of-exoplanet-exploration/', icon: <Award size={20} /> },
       { name: 'Crew', href: '#team', icon: <Users size={20} /> },
     ];
