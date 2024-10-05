@@ -6,7 +6,7 @@ import random
 pygame.init()
 
 # Set up display
-WIDTH, HEIGHT = 800, 600
+WIDTH, HEIGHT = 1366, 768
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Space Quiz Game")
 
