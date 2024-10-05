@@ -22,6 +22,10 @@ YELLOW = (255, 255, 0)
 font = pygame.font.Font(None, 36)
 big_font = pygame.font.Font(None, 48)
 
+# Messages
+
+WELCOME_MSG = "Welcome, fellow terrestrian!"
+
 class SpaceQuizGame:
     def __init__(self):
         self.questions = [
@@ -57,9 +61,12 @@ class SpaceQuizGame:
         self.timer = 0
         self.state = "START"
         
-        # Load space background image
-        self.background = pygame.image.load("space_background.jpg")
-        self.background = pygame.transform.scale(self.background, (WIDTH, HEIGHT))
+        # Load background images
+        self.background1 = pygame.image.load("background1.jpg")
+        self.background1 = pygame.transform.scale(self.background1, (WIDTH, HEIGHT))
+
+        self.background2 = pygame.image.load("background2.jpg")
+        self.background2 = pygame.transform.scale(self.background2, (WIDTH, HEIGHT))
         
         # Create star field
         self.stars = [(random.randint(0, WIDTH), random.randint(0, HEIGHT)) for _ in range(100)]
@@ -79,7 +86,7 @@ class SpaceQuizGame:
             pygame.draw.circle(screen, WHITE, star, 1)
 
     def update_stars(self):
-        self.stars = [(x, (y + 1) % HEIGHT) for x, y in self.stars]
+        self.stars = [((x + 1) % WIDTH, (y + 1) % HEIGHT) for x, y in self.stars]
 
     def draw_question(self):
         question = self.questions[self.current_question]
@@ -111,12 +118,13 @@ class SpaceQuizGame:
                     elif self.state == "END":
                         self.reset_game()
 
-            screen.blit(self.background, (0, 0))
+            screen.blit(self.background1, (0, 0))
             self.draw_stars()
             self.update_stars()
+            screen.blit(self.background2, (0, 0))
 
             if self.state == "START":
-                self.draw_text("Space Quiz Game", big_font, WHITE, WIDTH // 2, HEIGHT // 2 - 50)
+                self.draw_text(WELCOME_MSG, big_font, WHITE, WIDTH // 2, HEIGHT // 2 - 50)
                 self.draw_button("Start", WIDTH // 2 - 100, HEIGHT // 2 + 50, 200, 60, GREEN, WHITE)
             elif self.state == "PLAY":
                 self.draw_question()
