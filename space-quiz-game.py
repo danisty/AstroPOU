@@ -33,6 +33,17 @@ class SpaceGame:
         self.background2 = pygame.image.load("background2.jpg")
         self.background2 = pygame.transform.scale(self.background2, (WIDTH, HEIGHT))
         
+        # Load terminal images
+        self.terminal_images = [
+            pygame.image.load("terminal1.jpg"),
+            pygame.image.load("terminal2.jpg"),
+            pygame.image.load("terminal3.jpg")
+        ]
+        self.terminal_images = [pygame.transform.scale(img, (WIDTH, HEIGHT)) for img in self.terminal_images]
+        self.current_terminal = 0
+        self.terminal_animation_timer = 0
+        self.terminal_animation_speed = 1000  # milliseconds
+        
         # Load and resize rover images
         self.rover1 = pygame.image.load("rover1.jpg")
         self.rover2 = pygame.image.load("rover2.jpg")
@@ -42,7 +53,7 @@ class SpaceGame:
         self.rover_images = [self.rover1, self.rover2]
         self.current_rover = 0
         self.animation_timer = 0
-        self.animation_speed = 200  # milliseconds
+        self.animation_speed = 1  # milliseconds
 
         # Create star field
         self.stars = [(random.randint(0, WIDTH), random.randint(0, HEIGHT)) for _ in range(100)]
@@ -116,6 +127,15 @@ class SpaceGame:
         # Draw the text
         self.draw_text(text, font, BLACK, x + width // 2, y + height // 2)
 
+    def animate_terminal(self):
+        current_time = pygame.time.get_ticks()
+        if current_time - self.terminal_animation_timer > self.terminal_animation_speed:
+            self.current_terminal = (self.current_terminal + 1) % len(self.terminal_images)
+            self.terminal_animation_timer = current_time
+
+    def draw_terminal(self):
+        screen.blit(self.terminal_images[self.current_terminal], (0, 0))
+
     def play(self):
         clock = pygame.time.Clock()
         
@@ -131,16 +151,19 @@ class SpaceGame:
                     if event.key == pygame.K_SPACE:
                         if self.state == "START":
                             self.state = "SELECT"
+                        elif self.state == "SELECT":
+                            self.state = "TERMINAL"
 
-            # Draw background1
-            screen.blit(self.background1, (0, 0))
-            
-            # Draw and update stars
-            self.draw_stars()
-            self.update_stars()
-            
-            # Draw background2 on top of stars
-            screen.blit(self.background2, (0, 0))
+            if self.state in ["START", "SELECT"]:
+                # Draw background1
+                screen.blit(self.background1, (0, 0))
+                
+                # Draw and update stars
+                self.draw_stars()
+                self.update_stars()
+                
+                # Draw background2 on top of stars
+                screen.blit(self.background2, (0, 0))
 
             # Animate rover
             self.animate_rover()
@@ -153,8 +176,6 @@ class SpaceGame:
                 # Draw speech bubble
                 self.draw_speech_bubble(WELCOME_MSG, rover_x - 100, rover_y - 125, 400, 100)
                 
-                self.draw_text("Press SPACE to continue", font, WHITE, WIDTH // 2, HEIGHT - 100, "center")
-                self.draw_text("Press ESC to quit", font, WHITE, WIDTH // 2, HEIGHT - 50, "center")
             elif self.state == "SELECT":
                 # Draw rover
                 rover_x, rover_y = WIDTH // 2 - self.rover_size[0] // 2, 50
@@ -176,6 +197,11 @@ class SpaceGame:
 
                 # Draw name input square
                 self.draw_selection_square(WIDTH // 2 - box_width // 2, start_y + 2 * (box_height + box_spacing), box_width, box_height, "What's your name?", self.name)
+                
+            elif self.state == "TERMINAL":
+                # Animate and draw terminal background
+                self.animate_terminal()
+                self.draw_terminal()
 
             pygame.display.flip()
             clock.tick(60)
