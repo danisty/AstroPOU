@@ -32,10 +32,10 @@ const CrewMemberCard = ({ member }) => {
           <p className="text-blue-300 text-sm">{member.role}</p>
         </div>
         <div className="absolute flex justify-between items-center px-4 py-4 w-full">
-          <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-200">
+          <a href={member.github} target="_blank" rel="noopener noreferrer" className="text-gray-200 hover:text-white transition-colors duration-200">
             <Github size={24} />
           </a>
-          <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors duration-200">
+          <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-200 hover:text-white transition-colors duration-200">
             <Linkedin size={24} />
           </a>
         </div>
