@@ -161,11 +161,17 @@ class SpaceGame:
         for cloud in self.clouds:
             cloud.draw(screen)
 
+    def add_cloud(self, cloud):
+        self.clouds.append(cloud)
+
+    def move_cloud_to_top(self, cloud):
+        self.clouds.remove(cloud)
+        self.clouds.append(cloud)
+
     async def play(self):
         clock = pygame.time.Clock()
         
         while True:
-            await asyncio.sleep(0.001)
             mouse_pos = pygame.mouse.get_pos()
             
             for event in pygame.event.get():
@@ -237,7 +243,9 @@ class SpaceGame:
                     screen.blit(self.text_name, (900, 400))
 
             pygame.display.flip()
+
             clock.tick(60)
+            await asyncio.sleep(0)
 
 async def main():
     pygame.init()
