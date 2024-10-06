@@ -20,12 +20,13 @@ class Cloud:
 
 def run(game, event):
     if event.type == pygame.MOUSEBUTTONDOWN:
-        for cloud in game.clouds:
+        for cloud in reversed(game.clouds):
             if cloud.rect.collidepoint(event.pos):
                 cloud.dragging = True
                 cloud.offset_x = event.pos[0] - cloud.rect.x
                 cloud.offset_y = event.pos[1] - cloud.rect.y
+                game.move_cloud_to_top(cloud)
                 break
-    if event.type == pygame.MOUSEBUTTONUP:
+    elif event.type == pygame.MOUSEBUTTONUP:
         for cloud in game.clouds:
             cloud.dragging = False
