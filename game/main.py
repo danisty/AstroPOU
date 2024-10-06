@@ -184,7 +184,7 @@ class SpaceGame:
                             self.current_text += 1
                             if self.current_text >= 13 and self.terminal_state == 'STATIC':
                                 self.terminal_state = 'ANIMATED'
-                            if self.current_text > 17:
+                            if self.current_text >= 15:
                                 self.state = 'CLOUDS'
                                 self.current_module = clouds
                 if self.current_module:
