@@ -9,6 +9,7 @@ from games import clouds
 from games import earth
 from games import meta
 from games import nuevo
+from games import memory
 
 LANGUAGE_MSG = 'English'
 COUNTRY_MSG = 'Spain'
@@ -207,9 +208,13 @@ class SpaceGame:
                                 self.current_module = meta
                             else:
                                 earth.next_image()
-                        elif self.state == 'META':
+                        elif self.state =='META':
+                            self.state = 'MEMORY'
+                            self.current_module = memory
+                        elif self.state == 'MEMORY':
                             self.state = 'NUEVO'
                             self.current_module = nuevo
+                            
                 if self.current_module:
                     self.current_module.run(self, event)
 
@@ -232,7 +237,7 @@ class SpaceGame:
                 self.draw_planet()
                 if not self.planet_cloud.rect.collidepoint(self.planet_pos):
                     self.planet_found = True
-            elif self.state in ['EARTH', 'META', 'NUEVO']:
+            elif self.state in ['EARTH', 'META', 'NUEVO', 'MEMORY']:
                 self.current_module.draw(screen)
 
             self.animate_rover()
