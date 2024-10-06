@@ -5,6 +5,7 @@ import random
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 DARK_GRAY = (50, 50, 50, 200)  # Semi-transparent dark gray
+RED = (255, 0, 0)
 
 WIDTH, HEIGHT = 1366, 768
 

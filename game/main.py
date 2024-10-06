@@ -4,6 +4,7 @@ import sys
 from constants import *
 from games.clouds import Cloud
 from games import clouds
+from games import earth
 
 LANGUAGE_MSG = 'English'
 COUNTRY_MSG = 'Spain'
@@ -37,7 +38,7 @@ class SpaceGame:
         # Load and scale rover images
         self.rover1 = pygame.image.load('assets/rover1.jpg')
         self.rover2 = pygame.image.load('assets/rover2.jpg')
-        self.rover_size = (200, 200)  # Reduced size to avoid covering important background elements
+        self.rover_size = (200, 200)
         self.rover1 = pygame.transform.scale(self.rover1, self.rover_size)
         self.rover2 = pygame.transform.scale(self.rover2, self.rover_size)
         self.rover_images = [self.rover1, self.rover2]
@@ -49,7 +50,7 @@ class SpaceGame:
         self.rover_x = WIDTH // 2 - self.rover_size[0] // 2
         self.target = self.rover_y
         
-        # Load text images (keep original size)
+        # Load text images
         self.text_images_original = [pygame.image.load(f'assets/text{i}.jpg') for i in range(1, 18)]
         self.text_images_size = (400, 200)
         self.text_images = []
@@ -95,6 +96,14 @@ class SpaceGame:
         self.location = COUNTRY_MSG
         self.name = NAME_MSG
 
+        # Planet variables
+        self.planet_cloud = random.choice(self.clouds)
+        self.planet_pos = (
+            self.planet_cloud.rect.x + random.randint(0, self.planet_cloud.rect.width),
+            self.planet_cloud.rect.y + random.randint(0, self.planet_cloud.rect.height)
+        )
+        self.planet_found = False
+
     def draw_text(self, text, font, color, x, y, align='center'):
         text_surface = font.render(text, True, color)
         text_rect = text_surface.get_rect()
@@ -117,19 +126,6 @@ class SpaceGame:
 
     def update_stars(self):
         self.stars = [((x + 1) % WIDTH, (y + 1) % HEIGHT) for x, y in self.stars]
-
-    # def draw_selection_square(self, x, y, width, height, label, value):
-    #     background_surface = pygame.Surface((width, height), pygame.SRCALPHA)
-    #     background_surface.fill(DARK_GRAY)
-    #     screen.blit(background_surface, (x, y))
-    #     pygame.draw.rect(screen, WHITE, (x, y, width, height), 2)
-    #     label_bottom = self.draw_centered_text(label, font, WHITE, x, y + 20, width)
-    #     pygame.draw.line(screen, WHITE, (x + 10, label_bottom + 5), (x + width - 10, label_bottom + 5), 2)
-    #     self.draw_text(value, font, WHITE, x + width // 2, label_bottom + 35, 'center')
-    #     arrow_points = [(x + width // 2, y + height - 20),
-    #                     (x + width // 2 - 10, y + height - 30),
-    #                     (x + width // 2 + 10, y + height - 30)]
-    #     pygame.draw.polygon(screen, WHITE, arrow_points)
 
     def animate_rover(self):
         current_time = pygame.time.get_ticks()
@@ -159,6 +155,10 @@ class SpaceGame:
         for cloud in self.clouds:
             cloud.draw(screen)
 
+    def draw_planet(self):
+        if not self.planet_cloud.rect.collidepoint(self.planet_pos):
+            pygame.draw.circle(screen, RED, self.planet_pos, 5)
+
     def play(self):
         clock = pygame.time.Clock()
         
@@ -176,10 +176,10 @@ class SpaceGame:
                     if event.key == pygame.K_SPACE:
                         if self.state == 'START':
                             self.state = 'SELECT'
-                            self.current_text = 1  # Move to the next text image
+                            self.current_text = 1
                         elif self.state == 'SELECT':
                             self.state = 'TERMINAL'
-                            self.current_text = 2  # Start terminal texts
+                            self.current_text = 2
                         elif self.state == 'TERMINAL':
                             self.current_text += 1
                             if self.current_text >= 13 and self.terminal_state == 'STATIC':
@@ -187,6 +187,11 @@ class SpaceGame:
                             if self.current_text >= 15:
                                 self.state = 'CLOUDS'
                                 self.current_module = clouds
+                        elif self.state == 'CLOUDS' and self.planet_found:
+                            self.state = 'EARTH'
+                            self.current_module = earth
+                        elif self.state == 'EARTH':
+                            self.current_module.next_image()
                 if self.current_module:
                     self.current_module.run(self, event)
 
@@ -206,6 +211,11 @@ class SpaceGame:
                 for cloud in self.clouds:
                     cloud.update(mouse_pos)
                 self.draw_clouds()
+                self.draw_planet()
+                if not self.planet_cloud.rect.collidepoint(self.planet_pos):
+                    self.planet_found = True
+            elif self.state == 'EARTH':
+                self.current_module.draw(screen)
 
             self.animate_rover()
 
@@ -215,7 +225,6 @@ class SpaceGame:
                 text_x = WIDTH // 2 - text_image.get_width() // 2
                 text_y = HEIGHT // 2 - text_image.get_height() // 2
                 
-                # Position rover in the bottom left corner
                 rover_x = 400
                 rover_y = 60
                 
@@ -223,11 +232,6 @@ class SpaceGame:
                 self.draw_text_image(text_x, text_y)
 
                 if self.state == 'SELECT':
-                    box_width, box_height = 400, 120
-                    box_spacing = 20
-                    total_height = 3 * box_height + 2 * box_spacing
-                    start_y = text_y + text_image.get_height() + 50
-
                     screen.blit(self.text_language, (100, 400))
                     screen.blit(self.text_location, (500, 400))
                     screen.blit(self.text_name, (900, 400))
