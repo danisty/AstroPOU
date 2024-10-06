@@ -1,6 +1,8 @@
 import pygame
 import random
 import sys
+import asyncio
+
 from constants import *
 from games.clouds import Cloud
 from games import clouds
@@ -160,7 +162,14 @@ class SpaceGame:
         if not self.planet_cloud.rect.collidepoint(self.planet_pos):
             pygame.draw.circle(screen, RED, self.planet_pos, 5)
 
-    def play(self):
+    def add_cloud(self, cloud):
+        self.clouds.append(cloud)
+
+    def move_cloud_to_top(self, cloud):
+        self.clouds.remove(cloud)
+        self.clouds.append(cloud)
+
+    async def play(self):
         clock = pygame.time.Clock()
         
         while True:
@@ -242,12 +251,14 @@ class SpaceGame:
                     screen.blit(self.text_name, (900, 400))
 
             pygame.display.flip()
-            clock.tick(60)
 
-if __name__ == '__main__':
+            clock.tick(60)
+            await asyncio.sleep(0)
+
+async def main():
     pygame.init()
-    font = pygame.font.Font(None, 36)
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Space Game")
     game = SpaceGame()
-    game.play()
+    await game.play()
+
+asyncio.run(main())
