@@ -58,12 +58,12 @@ const ProjectDescription = () => {
         <div className="bg-blue-900 shadow-lg p-8 rounded-lg">
           <h3 className="mb-4 font-bold text-2xl">Development Process</h3>
           <p className="mb-6 text-lg">
-            Our team leveraged a variety of tools and technologies to bring AstroPOU to life:
+            Our team leveraged a variety of tools and technologies to bring ExoQuest to life:
           </p>
           <ul className="space-y-2 list-disc list-inside">
             <li><strong>IDE:</strong> Visual Studio Code</li>
             <li><strong>Version Control:</strong> Git</li>
-            <li><strong>Languages:</strong> Python (demo), HTML5, CSS, JavaScript, and React (web page)</li>
+            <li><strong>Languages:</strong> Python (demo), HTML5, CSS, JavaScript, TailwindCSS, and React (web page)</li>
             <li><strong>Design Tools:</strong> Adobe Illustrator, Adobe Photoshop</li>
             <li><strong>Presentation:</strong> Microsoft PowerPoint</li>
           </ul>
@@ -75,7 +75,7 @@ const ProjectDescription = () => {
         <div className="mt-12 text-center">
           <h3 className="mb-4 font-bold text-2xl">Our Vision</h3>
           <p className="text-lg">
-            With AstroPOU, we aim to inspire young minds to explore the fascinating world of exoplanets and space exploration. By providing an interactive and immersive experience, we hope to cultivate a passion for space and science, stimulate critical thinking skills, and make quality space education accessible to all, regardless of technological resources.
+            With ExoQuest, we aim to inspire young minds to explore the fascinating world of exoplanets and space exploration. By providing an interactive and immersive experience, we hope to cultivate a passion for space and science, stimulate critical thinking skills, and make quality space education accessible to all, regardless of technological resources.
           </p>
         </div>
       </div>
