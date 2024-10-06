@@ -4,7 +4,7 @@ import { Lightbulb, Notebook } from 'lucide-react';
 const ProjectDev = () => {
   return (
     <section id="project-ideas" className="bg-gray-800 pt-20">
-      <div className="mx-auto px-4 container">
+      <div className="mx-auto px-4 max-w-[930px] container">
         <h2 className="mb-12 font-bold text-4xl text-center">Project Development</h2>
         <div className="items-center gap-8 grid grid-cols-1 md:grid-cols-2">
           <div className="bg-blue-900 shadow-lg rounded-lg overflow-hidden">
@@ -24,7 +24,7 @@ const ProjectDev = () => {
             </p>
           </div>
         </div>
-        <div className="items-center gap-8 grid grid-cols-1 md:grid-cols-2 mt-20">
+        <div className="items-center gap-8 grid grid-cols-1 md:grid-cols-2 mt-10">
           <div className="bg-blue-900 shadow-lg p-6 rounded-lg">
             <h3 className="flex items-center mb-4 font-bold text-2xl">
               <Notebook className="mr-2" size={24} />
@@ -42,6 +42,13 @@ const ProjectDev = () => {
             />
           </div>
         </div>
+        <div className="bg-blue-900 shadow-lg mt-10 rounded-lg overflow-hidden">
+            <img 
+              src="https://media.discordapp.net/attachments/1292047329301495843/1292418337380241458/image.png?ex=6703a9df&is=6702585f&hm=9d69a3954c55e616975f1e14eeac36594ff3857c7425de96545fe32087cc08ef" 
+              alt="Initial project ideas" 
+              className="w-full h-auto"
+            />
+          </div>
       </div>
     </section>
   );
