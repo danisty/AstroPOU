@@ -35,7 +35,9 @@ const teamMembers = [
   {
     name: "Lucas Alberola Pastor",
     role: "Estudiante en Ingeniería Informática",
-    image: "./PXL_20241005_131011213.PORTRAIT.ORIGINAL.jpg?ex=67028c75&is=67013af5&hm=f815022469421afe57d19010deb4f8fff4ef60dcb486145e682ca0562d1cb0d8"
+    image: "./PXL_20241005_131011213.PORTRAIT.ORIGINAL.jpg?ex=67028c75&is=67013af5&hm=f815022469421afe57d19010deb4f8fff4ef60dcb486145e682ca0562d1cb0d8",
+    github: "https://github.com/LucasAlberola",
+    linkedin: "https://www.linkedin.com/in/lucas-alberola-pastor-47b5a5331/"
   },
   {
     name: "Javier Antón Sala",
