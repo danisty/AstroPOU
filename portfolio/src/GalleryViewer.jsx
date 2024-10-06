@@ -3,16 +3,10 @@ import { useTransition, animated } from 'react-spring';
 import { ChevronLeft, ChevronRight, Maximize, Minimize, Pause, Play } from 'lucide-react';
 
 const images = [
-  "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
-  "https://images.unsplash.com/photo-1581822261290-991b38693d1b?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
-  "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
-  "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
-  "https://images.unsplash.com/photo-1543722530-d2c3201371e7?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
-  "https://images.unsplash.com/photo-1502134249126-9f3755a50d78?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
-  "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
-  "https://media.discordapp.net/attachments/1292047329301495843/1292123665021931620/rabbit.jpg?ex=67029770&is=670145f0&hm=b8f1a118659956eef8de93f43713dd598cefddfc292caed610bb0d6466757db5&=&format=webp&width=384&height=579",
-  "https://images.unsplash.com/photo-1590341328520-63256eb32bc3?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80",
-  "https://images.unsplash.com/photo-1608178398319-48f814d0750c?ixlib=rb-1.2.1&auto=format&fit=crop&w=2048&h=1024&q=80"
+  "https://media.discordapp.net/attachments/1292047329301495843/1292087293049307247/PXL_20241005_083414889.jpg?ex=67031e50&is=6701ccd0&hm=472b06fd8ffd49b6d3924465f29cec7c49d3f96a5bb6e7d380e44281460abd8d",
+  "https://media.discordapp.net/attachments/723112662954672128/1292419109484498974/PXL_20241005_124456497.jpg?ex=6703aa97&is=67025917&hm=f86707c14ebb00ad47e0d42c41eb456cb7f4fa3f338110ae359b952f85ce16ef",
+  "https://media.discordapp.net/attachments/723112662954672128/1292419110067503196/PXL_20241005_115607370.RAW-01.MP.COVER.jpg?ex=6703aa97&is=67025917&hm=370e7e3931e66c600c949e3c943afa600d9c738bf7109311d4b390f5aabf0c6f",
+  "https://media.discordapp.net/attachments/723112662954672128/1292419110608830474/PXL_20241004_165006234.jpg?ex=6703aa97&is=67025917&hm=aa452d9089c8d07431ec2f9a906f240a055219be676d947d3099e8a4ded0dff9"
 ];
 
 const GalleryViewer = () => {
@@ -65,7 +59,7 @@ const GalleryViewer = () => {
   return (
     <div 
       ref={galleryRef} 
-      className="relative bg-gray-900 shadow-xl mx-auto rounded-lg w-full max-w-4xl overflow-hidden h-[420px]"
+      className="relative bg-gray-900 shadow-xl mx-auto rounded-lg w-full max-w-4xl h-[420px] overflow-hidden"
     >
       {transitions((style, i) => (
         <animated.div
@@ -86,26 +80,26 @@ const GalleryViewer = () => {
           />
         </animated.div>
       ))}
-      <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black to-transparent p-4">
+      <div className="bottom-0 absolute inset-x-0 bg-gradient-to-t from-black to-transparent p-4">
         <p className="text-center text-white">
           {index + 1} / {images.length}
         </p>
       </div>
       <button 
         onClick={prevImage} 
-        className="absolute top-1/2 left-4 bg-black/50 hover:bg-black/75 p-2 rounded-full text-white transform -translate-y-1/2 transition-all"
+        className="top-1/2 left-4 absolute bg-black/50 hover:bg-black/75 p-2 rounded-full text-white transform transition-all -translate-y-1/2"
         aria-label="Previous image"
       >
         <ChevronLeft size={24} />
       </button>
       <button 
         onClick={nextImage} 
-        className="absolute top-1/2 right-4 bg-black/50 hover:bg-black/75 p-2 rounded-full text-white transform -translate-y-1/2 transition-all"
+        className="top-1/2 right-4 absolute bg-black/50 hover:bg-black/75 p-2 rounded-full text-white transform transition-all -translate-y-1/2"
         aria-label="Next image"
       >
         <ChevronRight size={24} />
       </button>
-      <div className="absolute top-4 right-4 space-x-2">
+      <div className="top-4 right-4 absolute space-x-2">
         <button 
           onClick={toggleAutoScroll} 
           className="bg-black/50 hover:bg-black/75 p-2 rounded-full text-white transition-all"

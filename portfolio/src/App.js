@@ -4,6 +4,7 @@ import { animated, config, useSpring } from 'react-spring';
 import CrewViewer from './CrewViewer';
 import GalleryViewer from './GalleryViewer';
 import ProjectDescription from './ProjectDescription';
+import ProjectDev from './ProjectDev';
 
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -42,7 +43,7 @@ const Header = () => {
         <div className="px-4 py-4 flex justify-between items-center">
           <animated.div style={logoAnimation} className="flex items-center space-x-4">
             <Rocket size={32} className="text-blue-400" />
-            <span className="text-xl font-bold">AstroPOU</span>
+            <span className="text-xl font-bold">ExoQuest</span>
           </animated.div>
           <nav className="hidden md:block">
             <ul className="flex space-x-6">
@@ -123,9 +124,11 @@ const NASAPortfolio = () => {
 
       <ProjectDescription />
 
+      <ProjectDev />
+
       <section id="gallery" className="pt-20 bg-gray-800">
         <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-bold mb-8 text-center">Project Gallery</h2>
+          <h2 className="text-4xl font-bold mb-8 text-center">Gallery</h2>
           <GalleryViewer />
         </div>
       </section>

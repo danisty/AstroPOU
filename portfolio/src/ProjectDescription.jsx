@@ -2,10 +2,10 @@ import { BookOpen, Code, Cpu, Globe, Smartphone, Users } from 'lucide-react';
 import React from 'react';
 
 const FeatureCard = ({ icon, title, description }) => (
-  <div className="bg-blue-900 rounded-lg p-6 shadow-lg transition-all duration-300 hover:shadow-xl">
+  <div className="bg-blue-900 shadow-lg hover:shadow-xl p-6 rounded-lg transition-all duration-300">
     <div className="flex items-center space-x-4 mb-4">
       {icon}
-      <h3 className="text-xl font-bold">{title}</h3>
+      <h3 className="font-bold text-xl">{title}</h3>
     </div>
     <p className="text-gray-300">{description}</p>
   </div>
@@ -13,16 +13,16 @@ const FeatureCard = ({ icon, title, description }) => (
 
 const ProjectDescription = () => {
   return (
-    <section id="project" className="py-20 bg-gray-900">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-8 text-center">AstroPOU</h2>
-        <div className="max-w-3xl mx-auto text-center mb-12">
-          <p className="text-xl mb-6">
-            AstroPOU (Power Of Understanding) is a dynamic immersive experience that educates users about exoplanet research and NASA's Exoplanet Exploration Program through compelling storytelling and interactive mini-games.
+    <section id="project" className="bg-gray-900 py-20">
+      <div className="mx-auto px-4 container">
+        <h2 className="mb-8 font-bold text-4xl text-center">ExoQuest</h2>
+        <div className="mx-auto mb-12 max-w-3xl text-center">
+          <p className="mb-6 text-xl">
+            ExoQuest is a dynamic immersive experience that educates users about exoplanet research and NASA's Exoplanet Exploration Program through compelling storytelling and interactive mini-games.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="gap-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-12">
           <FeatureCard
             icon={<Smartphone size={32} className="text-blue-400" />}
             title="Multi-Platform"
@@ -55,12 +55,12 @@ const ProjectDescription = () => {
           />
         </div>
 
-        <div className="bg-blue-900 rounded-lg p-8 shadow-lg">
-          <h3 className="text-2xl font-bold mb-4">Development Process</h3>
-          <p className="text-lg mb-6">
+        <div className="bg-blue-900 shadow-lg p-8 rounded-lg">
+          <h3 className="mb-4 font-bold text-2xl">Development Process</h3>
+          <p className="mb-6 text-lg">
             Our team leveraged a variety of tools and technologies to bring AstroPOU to life:
           </p>
-          <ul className="list-disc list-inside space-y-2">
+          <ul className="space-y-2 list-disc list-inside">
             <li><strong>IDE:</strong> Visual Studio Code</li>
             <li><strong>Version Control:</strong> Git</li>
             <li><strong>Languages:</strong> Python (demo), HTML5, CSS, JavaScript, and React (web page)</li>
@@ -73,7 +73,7 @@ const ProjectDescription = () => {
         </div>
 
         <div className="mt-12 text-center">
-          <h3 className="text-2xl font-bold mb-4">Our Vision</h3>
+          <h3 className="mb-4 font-bold text-2xl">Our Vision</h3>
           <p className="text-lg">
             With AstroPOU, we aim to inspire young minds to explore the fascinating world of exoplanets and space exploration. By providing an interactive and immersive experience, we hope to cultivate a passion for space and science, stimulate critical thinking skills, and make quality space education accessible to all, regardless of technological resources.
           </p>
