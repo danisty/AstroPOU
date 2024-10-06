@@ -7,40 +7,40 @@ const teamMembers = [
   {
     name: "Abel Gandía Ruiz",
     role: "Estudiante en Ingeniería Informática",
-    image: "https://media.discordapp.net/attachments/723112662954672128/1292113060428906496/PXL_20241005_130906833.PORTRAIT.ORIGINAL2.jpg?ex=67028d8f&is=67013c0f&hm=ee56468b26ef62fc2947ae2a7fae9a4cca0f53d2980f7a60845358e01ff30812",
+    image: "./PXL_20241005_130906833.PORTRAIT.ORIGINAL2.jpg?ex=67028d8f&is=67013c0f&hm=ee56468b26ef62fc2947ae2a7fae9a4cca0f53d2980f7a60845358e01ff30812",
     github: "https://github.com/danisty",
     linkedin: "https://www.linkedin.com/in/abel-gand%C3%ADa-ruiz-5369a130b/"
   },
   {
     name: "Miquel Ivorra Mollà",
     role: "Estudiante en Ingeniería Informática",
-    image: "https://media.discordapp.net/attachments/1202556644815540245/1292122258567073933/PXL_20241005_135151611.PORTRAIT.ORIGINAL2.jpg?ex=67029620&is=670144a0&hm=ece1ad4a2dc87a2ed4912bb1ae7eca3c19fc48fae991dd20eb7553f409d6fbf6",
+    image: "./PXL_20241005_135151611.PORTRAIT.ORIGINAL2.jpg?ex=67029620&is=670144a0&hm=ece1ad4a2dc87a2ed4912bb1ae7eca3c19fc48fae991dd20eb7553f409d6fbf6",
     github: "https://github.com/mim29-ua",
     linkedin: "https://www.linkedin.com/in/miquel-ivorra-molla-344a27291/"
   },
   {
     name: "Sergio Muñoz Vázquez",
     role: "Estudiante en Ingeniería Informática",
-    image: "https://media.discordapp.net/attachments/1202556644815540245/1292122440390017135/PXL_20241005_135117526.PORTRAIT.ORIGINAL.jpg?ex=6702964c&is=670144cc&hm=d102b101ce47c845ce226a5f4f416fe2d2647219f89fa6c92b195427f4763e3c",
+    image: "./PXL_20241005_135117526.PORTRAIT.ORIGINAL.jpg?ex=6702964c&is=670144cc&hm=d102b101ce47c845ce226a5f4f416fe2d2647219f89fa6c92b195427f4763e3c",
     github: "https://github.com/smv58-ua",
     linkedin: "https://www.linkedin.com/in/sergio-mu%C3%B1oz-v%C3%A1zquez-987190325/"
   },
   {
     name: "Alex García Martínez",
     role: "Estudiante en Ingeniería Informática",
-    image: "https://media.discordapp.net/attachments/1202556644815540245/1292110617632833556/PXL_20241005_130448793.PORTRAIT.ORIGINAL.jpg?ex=67028b49&is=670139c9&hm=7c7b8009933c4b42d5d424487132683187eba34c16e8daf59063e5159d9ccf89",
+    image: "./PXL_20241005_130448793.PORTRAIT.ORIGINAL.jpg?ex=67028b49&is=670139c9&hm=7c7b8009933c4b42d5d424487132683187eba34c16e8daf59063e5159d9ccf89",
     github: "https://github.com/agm454-ua",
     linkedin: "https://www.linkedin.com/in/alex-garcia-martinez-0b1a5a319/"
   },
   {
     name: "Lucas Alberola Pastor",
     role: "Estudiante en Ingeniería Informática",
-    image: "https://media.discordapp.net/attachments/1202556644815540245/1292111874787381372/PXL_20241005_131011213.PORTRAIT.ORIGINAL.jpg?ex=67028c75&is=67013af5&hm=f815022469421afe57d19010deb4f8fff4ef60dcb486145e682ca0562d1cb0d8"
+    image: "./PXL_20241005_131011213.PORTRAIT.ORIGINAL.jpg?ex=67028c75&is=67013af5&hm=f815022469421afe57d19010deb4f8fff4ef60dcb486145e682ca0562d1cb0d8"
   },
   {
     name: "Javier Antón Sala",
     role: "Estudiante en Ingeniería Informática",
-    image: "https://media.discordapp.net/attachments/1202556644815540245/1292112250362134619/PXL_20241005_131228562.PORTRAIT.jpg?ex=67028cce&is=67013b4e&hm=08f9c84075ee582e2b4e01ac578a89bac43f523b361e3bc8c8398ca2375247e0",
+    image: "./PXL_20241005_131228562.PORTRAIT.jpg?ex=67028cce&is=67013b4e&hm=08f9c84075ee582e2b4e01ac578a89bac43f523b361e3bc8c8398ca2375247e0",
     github: "https://github.com/jas77-ua",
     linkedin: "https://www.linkedin.com/in/javier-ant%C3%B3n-sala-1b979524a/"
   }
