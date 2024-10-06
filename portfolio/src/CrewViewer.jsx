@@ -102,6 +102,7 @@ const useAutoScroll = (scrollRef, duration = 20000, pauseDuration = 2000) => {
     if (!scrollElement) return;
 
     let animationFrameId;
+    let timeout;
 
     const animate = (timestamp) => {
       if (!lastTimestampRef.current) {
@@ -113,8 +114,8 @@ const useAutoScroll = (scrollRef, duration = 20000, pauseDuration = 2000) => {
         scrollPositionRef.current = scrollElement.scrollLeft;
         animationFrameId = requestAnimationFrame(animate);
 
-        setIsPaused(true);
         pauseStartTime.current = timestamp;
+        setIsPaused(true);
 
         return;
       }
@@ -132,20 +133,20 @@ const useAutoScroll = (scrollRef, duration = 20000, pauseDuration = 2000) => {
               onChange: (props) => {
                 scrollRef.current.scrollLeft = props.value.y;
                 if (props.value.y < 5) {
-                  setTimeout(()  => setIsPaused(false), pauseDuration);
+                  timeout = setTimeout(()  => setIsPaused(false), pauseDuration);
                 }
               },
             });
           } else {
-            setTimeout(() => setIsPaused(false), pauseDuration)
+            timeout = setTimeout(() => setIsPaused(false), pauseDuration)
           }
         }
       } else {
         scrollPositionRef.current += 0.7;
         
         if (scrollPositionRef.current >= scrollWidth) {
-          setIsPaused(true);
           pauseStartTime.current = timestamp;
+          setIsPaused(true);
         }
 
         scrollElement.scrollLeft = scrollPositionRef.current;
@@ -165,6 +166,7 @@ const useAutoScroll = (scrollRef, duration = 20000, pauseDuration = 2000) => {
     return () => {
       cancelAnimationFrame(animationFrameId);
       scrollElement.removeEventListener('scroll', handleScroll);
+      clearTimeout(timeout);
     };
   }, [scrollRef, duration, pauseDuration, isScrolling, isPaused]);
 
@@ -194,25 +196,25 @@ const CrewViewer = () => {
   };
 
   return (
-    <section id="team" className="py-16 bg-gray-800">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-12 text-center">Our Crew</h2>
+    <section id="team" className="bg-gray-800 py-16">
+      <div className="mx-auto px-4 container">
+        <h2 className="mb-12 font-bold text-4xl text-center">Our Crew</h2>
         <div className="relative"
           onMouseEnter={() => setIsScrolling(false)}
           onMouseLeave={() => setIsScrolling(true)}>
-          <div ref={scrollRef} className="flex overflow-x-scroll space-x-6 no-scrollbar">
+          <div ref={scrollRef} className="flex space-x-6 overflow-x-scroll no-scrollbar">
             {teamMembers.map((member, index) => (
               <CrewMemberCard key={index} member={member} />
             ))}
           </div>
-          <div className="absolute top-1/2 left-2 transform -translate-y-1/2">
-            <button className="bg-blue-600 p-2 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+          <div className="top-1/2 left-2 absolute transform -translate-y-1/2">
+            <button className="bg-blue-600 hover:bg-blue-700 shadow-lg p-2 rounded-full transition duration-300"
               onClick={() => scrollTo(-1)}>
               <ChevronLeft size={24} />
             </button>
           </div>
-          <div className="absolute top-1/2 right-2 transform -translate-y-1/2">
-            <button className="bg-blue-600 p-2 rounded-full shadow-lg hover:bg-blue-700 transition duration-300"
+          <div className="top-1/2 right-2 absolute transform -translate-y-1/2">
+            <button className="bg-blue-600 hover:bg-blue-700 shadow-lg p-2 rounded-full transition duration-300"
               onClick={() => scrollTo(1)}>
               <ChevronRight size={24} />
             </button>

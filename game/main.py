@@ -1,6 +1,8 @@
 import pygame
 import random
 import sys
+import asyncio
+
 from constants import *
 from games.clouds import Cloud
 from games import clouds
@@ -159,10 +161,11 @@ class SpaceGame:
         for cloud in self.clouds:
             cloud.draw(screen)
 
-    def play(self):
+    async def play(self):
         clock = pygame.time.Clock()
         
         while True:
+            await asyncio.sleep(0.001)
             mouse_pos = pygame.mouse.get_pos()
             
             for event in pygame.event.get():
@@ -187,6 +190,7 @@ class SpaceGame:
                             if self.current_text > 17:
                                 self.state = 'CLOUDS'
                                 self.current_module = clouds
+
                 if self.current_module:
                     self.current_module.run(self, event)
 
@@ -235,10 +239,10 @@ class SpaceGame:
             pygame.display.flip()
             clock.tick(60)
 
-if __name__ == '__main__':
+async def main():
     pygame.init()
-    font = pygame.font.Font(None, 36)
-    screen = pygame.display.set_mode((WIDTH, HEIGHT))
     pygame.display.set_caption("Space Game")
     game = SpaceGame()
-    game.play()
+    await game.play()
+
+asyncio.run(main())
